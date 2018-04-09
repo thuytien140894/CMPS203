@@ -4,6 +4,6 @@ module Syntax where
     = Num Int
     | Add Term Term
     | Mult Term Term
-
+    deriving (Eq, Show)
 
 
