@@ -1,2 +1,8 @@
+import Test.Hspec
+import Evaluator
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main = hspec $ 
+  describe "evaluates" $ 
+    it "prints out \"Hello World!\"" 
+      someFunc 
