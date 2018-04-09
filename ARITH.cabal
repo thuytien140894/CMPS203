@@ -1,0 +1,66 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 09e03bfc529e506a0af5fcf034456bae93c6f8dfdb1d59f5a5af24b0bc194d32
+
+name:           ARITH
+version:        0.1.0.0
+description:    Please see the README on Github at <https://github.com/githubuser/ARITH#readme>
+homepage:       https://github.com/githubuser/ARITH#readme
+bug-reports:    https://github.com/githubuser/ARITH/issues
+author:         Tien Thuy Ho
+maintainer:     thuytien140894@gmail.com
+copyright:      2018 Tien Thuy Ho
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    ChangeLog.md
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/ARITH
+
+library
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+    , mtl >= 2.2 && < 3.0
+  exposed-modules:
+      Syntax
+    , Evaluator
+  other-modules:
+      Paths_ARITH
+  default-language: Haskell2010
+
+executable ARITH-exe
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ARITH
+    , base >=4.7 && <5
+    , mtl >= 2.2 && < 3.0
+  other-modules:
+      Paths_ARITH
+  default-language: Haskell2010
+
+test-suite ARITH-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ARITH
+    , base >=4.7 && <5
+    , hspec >= 2.2
+  other-modules:
+      Paths_ARITH
+  default-language: Haskell2010
