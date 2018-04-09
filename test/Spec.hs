@@ -1,8 +1,4 @@
-import Test.Hspec
-import Evaluator
+{-# OPTIONS_GHC -F -pgmF hspec-discover #-}
 
 main :: IO ()
-main = hspec $ 
-  describe "evaluates" $ 
-    it "prints out \"Hello World!\"" 
-      someFunc 
+main = hspec spec

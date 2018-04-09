@@ -63,4 +63,5 @@ test-suite ARITH-test
     , hspec >= 2.2
   other-modules:
       Paths_ARITH
+    , EvalSpec
   default-language: Haskell2010
