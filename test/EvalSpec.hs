@@ -7,6 +7,12 @@ module EvalSpec where
   spec :: Spec
   spec = 
     describe "evaluates" $ do
+      context "5" $
+        it "should be 5" $
+          eval (Num 5)
+          `shouldBe`
+          Right (Num 5)
+
       context "5 + 3" $
         it "should be 8" $
           eval (Num 5 `Add` Num 3)
