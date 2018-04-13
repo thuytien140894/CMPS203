@@ -28,54 +28,18 @@ on the system.
         
    For Windows, download and install [Windows 64-bit Installer](https://www.stackage.org/stack/windows-x86_64-installer)  
 
-**2. How to build and run the program**
+**2. How to build the program**
 
-   Go to the program directory, then run the following commands in the same order:  
+   Go to the program directory, then run the following command:  
    
-        stack build  
-        stack exec GTLC-exe  
+        stack build 
 
-**3. How to use the program**
-
-   For integer integrals where n is an integer, type:
-        
-        Num n
-        
-   To add two integers, type:    
-   
-        Add (Num n) (Num m)
-        
-   To subtract two integers, type:    
-   
-        Sub (Num n) (Num m) 
-
-   To multiply two integers, type:    
-   
-        Mult (Num n) (Num m)
-   
-   To divide two integers, type:    
-   
-        Div (Num n) (Num m)
-
-   For a more intuitive construction of a binary operation, one can type:
-
-        Num n `op` Num m
-
-   where op is Add, Sub, Mult, or Div.
-
-   An operation can be performed between any two valid ARITH expressions. For instance, 
-   one can add two expressions, each of which has its own operation, as follows:
-
-        Add (Num n) (Num m) `Add` Sub (Num j) (Num k) 
-
-   Enclose a group of operations in parentheses whenever necessary to enforce precedence.  
-        
-**4. How to exit the program**
-
-        Type "exit" in the console
-
-**5. How to run tests on the program**
+**3. How to run tests on the program**
 
    Run the command:  
    
         stack test
+        
+   or 
+
+        stack exec ARITH-exe 
