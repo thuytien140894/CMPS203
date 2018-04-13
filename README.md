@@ -57,15 +57,16 @@ on the system.
    
         Div (Num n) (Num m)
 
-   For a more intuitive construction of an operation as a binary entity, one can type:
+   For a more intuitive construction of a binary operation, one can type:
 
         Num n `op` Num m
 
-   where op is either Add, Sub, Mult, or Div
+   where op is Add, Sub, Mult, or Div.
+
    An operation can be performed between any two valid ARITH expressions. For instance, 
    one can add two expressions, each of which has its own operation, as follows:
 
-        Add (Add (Num n) (Num m)) (Sub (Num j) (Num k)) 
+        Add (Num n) (Num m) `Add` Sub (Num j) (Num k) 
 
    Enclose a group of operations in parentheses whenever necessary to enforce precedence.  
         
