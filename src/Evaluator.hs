@@ -8,13 +8,8 @@ module Evaluator (
 
   -- evaluate a term
   eval :: Term -> Either String Term
-<<<<<<< HEAD
   eval (Num n)              = Right $ Num n             -- [E-INT]
   eval (Add t1 t2)          = do                        -- [E-ADD]
-=======
-  eval (Num n)              = Right $ Num n            -- [E-INT]
-  eval (Add t1 t2)          = do                       -- [E-ADD]
->>>>>>> 0c3a15cc7efee1407490737603d5a14f6166d57c
                                 Num n1 <- eval t1
                                 Num n2 <- eval t2
                                 return $ Num $ n1 + n2
