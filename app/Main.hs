@@ -3,9 +3,11 @@ module Main where
   import Evaluator
   import Syntax
 
+  -- interpret a term  
   interpret :: Term -> String 
   interpret t = show t ++ " => " ++ show (eval t) ++ "\n"
 
+  -- print test cases
   main :: IO ()
   main = do 
     putStrLn $ interpret $ Num 5
