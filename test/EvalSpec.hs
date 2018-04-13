@@ -11,22 +11,28 @@ module EvalSpec where
         it "should be 8" $
           eval (Num 5 `Add` Num 3)
           `shouldBe`
-          Just (Num 8)
+          Right (Num 8)
 
       context "5 * 3" $
         it "should be 15" $
           eval (Num 5 `Mult` Num 3)
           `shouldBe`
-          Just (Num 15)
+          Right (Num 15)
 
       context "3 - 10" $
         it "should be -7" $
-          eval (Num 3 `Add` Num (-10))
+          eval (Num 3 `Sub` Num 10)
           `shouldBe`
-          Just (Num (-7))
+          Right (Num (-7))
 
-      context "-3 * -3" $
-        it "should be 9" $
-          eval (Num (-3) `Mult` Num (-3))
+      context "9 / 3" $
+        it "should be 3" $
+          eval (Num 9 `Div` Num 3)
           `shouldBe`
-          Just (Num 9)
+          Right (Num 3)
+
+      context "9 / 0" $
+        it "should be invalid" $
+          eval (Num 9 `Div` Num 0)
+          `shouldBe`
+          Left "Divide by 0"
