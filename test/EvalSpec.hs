@@ -15,13 +15,13 @@ module EvalSpec where
 
       context "(5 * 10) + 3" $
         it "should be 53" $
-          eval ((Num 5 `Mult` Num 10) `Add` Num 3)
+          eval (Num 5 `Mult` Num 10 `Add` Num 3)
           `shouldBe`
           Right (Num 53)
   
       context "((5 * 10) / 2) + 3" $
         it "should be 28" $
-          eval (((Num 5 `Mult` Num 10) `Div` Num 2) `Add` Num 3)
+          eval ((Num 5 `Mult` Num 10 `Div` Num 2) `Add` Num 3)
           `shouldBe`
           Right (Num 28)
 
@@ -55,11 +55,11 @@ module EvalSpec where
           `shouldBe`
           Right (Num 5)
 
-      context "(((-9 / -2) * 8) + 7) - 4" $
-        it "should be 35" $
-          eval ((((Num (-9) `Div` Num (-2)) `Mult` Num 8) `Add` Num 7) `Sub` Num 4)
+      context "((-9 / -2) * (8 + 7) - 4" $
+        it "should be 56" $
+          eval ((Num (-9) `Div` Num (-2)) `Mult` (Num 8 `Add` Num 7) `Sub` Num 4)
           `shouldBe`
-          Right (Num 35)
+          Right (Num 56)
 
       context "(9 * 3) + (7 - 9)" $
         it "should be 25" $
@@ -69,7 +69,7 @@ module EvalSpec where
 
       context "(10 / 3) + (4 + 9) / 0" $
         it "should be invalid" $
-          eval ((Num 10 `Mult` Num 3) `Add` ((Num 2 `Add` Num 9) `Div` Num 0))
+          eval ((Num 10 `Mult` Num 3) `Add` Num 2 `Add` Num 9 `Div` Num 0)
           `shouldBe`
           Left "Divide by 0"
 
