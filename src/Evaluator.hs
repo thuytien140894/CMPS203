@@ -10,7 +10,7 @@ module Evaluator where
     Num n              -> Right e  
     Var x              -> case lookUp s x of 
                             Just n  -> Right $ Num n
-                            Nothing -> Left "Free Variable"
+                            Nothing -> Left "Free variable"
     Add e1 e2          -> do 
                             Num n1 <- aEval e1 s
                             Num n2 <- aEval e2 s
