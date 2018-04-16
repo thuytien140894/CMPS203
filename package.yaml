@@ -27,7 +27,7 @@ library:
   source-dirs: src
 
 executables:
-  Tien-exe:
+  ARITH-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -38,7 +38,7 @@ executables:
     - ARITH
 
 tests:
-  Tien-test:
+  ARITH-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
