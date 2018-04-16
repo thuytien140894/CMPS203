@@ -28,7 +28,7 @@ library:
   source-dirs: src
 
 executables:
-  Tien-exe:
+  WHILE-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -39,7 +39,7 @@ executables:
     - WHILE
 
 tests:
-  Tien-test:
+  WHILE-test:
     main:                Spec.hs
     source-dirs:         test
     ghc-options:
