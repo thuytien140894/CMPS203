@@ -6,12 +6,12 @@
 
 name:           WHILE
 version:        0.1.0.0
-description:    Please see the README on Github at <https://github.com/githubuser/WHILE#readme>
-homepage:       https://github.com/githubuser/WHILE#readme
-bug-reports:    https://github.com/githubuser/WHILE/issues
+description:    Please see the README on Github at <https://github.com/thuytien140894/CMPS203/tree/WHILE#readme>
+homepage:       https://github.com/thuytien140894/CMPS203/tree/WHILE#readme
+bug-reports:    https://github.com/thuytien140894/CMPS203/tree/WHILE/issues
 author:         Author name here
 maintainer:     example@example.com
-copyright:      2018 Author name here
+copyright:      2018 Tien Ho
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -23,15 +23,17 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/githubuser/WHILE
+  location: https://github.com/thuytien140894/CMPS203/tree/WHILE
 
 library
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , mtl >= 2.2 && < 3.0
   exposed-modules:
-      Lib
+      Syntax
+    , Evaluator
   other-modules:
       Paths_WHILE
   default-language: Haskell2010
@@ -44,6 +46,7 @@ executable WHILE-exe
   build-depends:
       WHILE
     , base >=4.7 && <5
+    , mtl >= 2.2 && < 3.0
   other-modules:
       Paths_WHILE
   default-language: Haskell2010
