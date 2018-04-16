@@ -3,16 +3,14 @@ module Evaluator where
   import Syntax
   import GlobalState
 
-  import Data.Maybe
-  import Data.Functor
-  import Control.Applicative
+  import Data.Either
 
-  import qualified Data.Map as Map (lookup)
-
-  aEval :: AExp -> State -> Maybe AExp
+  aEval :: AExp -> State -> Either String AExp
   aEval e s = case e of 
-    Num n              -> Just e  
-    Var x              -> Num <$> lookUp s x 
+    Num n              -> Right e  
+    Var x              -> case lookUp s x of 
+                            Just n  -> Right $ Num n
+                            Nothing -> Left "Free Variable"
     Add e1 e2          -> do 
                             Num n1 <- aEval e1 s
                             Num n2 <- aEval e2 s
@@ -26,10 +24,10 @@ module Evaluator where
                             Num n2 <- aEval e2 s
                             return $ Num $ n1 * n2
 
-  bEval :: BExp -> State -> Maybe BExp
+  bEval :: BExp -> State -> Either String BExp
   bEval e s = case e of 
-    Tru                -> Just Tru
-    Fls                -> Just Fls
+    Tru                -> Right Tru
+    Fls                -> Right Fls
     Equal e1 e2        -> do
                             Num n1 <- aEval e1 s
                             Num n2 <- aEval e2 s
@@ -41,17 +39,17 @@ module Evaluator where
     And e1 e2          -> do 
                             b1 <- bEval e1 s 
                             case b1 of 
-                              Fls -> Just Fls
+                              Fls -> Right Fls
                               Tru -> bEval e2 s
     Or e1 e2           -> do 
                             b1 <- bEval e1 s 
                             case b1 of 
-                              Tru -> Just Tru
+                              Tru -> Right Tru
                               Fls -> bEval e2 s 
 
-  cEval :: Stm -> State -> Maybe State
+  cEval :: Stm -> State -> Either String State
   cEval c s = case c of 
-    Skip               -> Just s
+    Skip               -> Right s
     Seq c1 c2          -> do 
                             s' <- cEval c1 s 
                             cEval c2 s'
@@ -67,5 +65,5 @@ module Evaluator where
                             b' <- bEval b s 
                             case b' of 
                               Tru -> cEval (Seq c $ While b c) s 
-                              Fls -> Just s
+                              Fls -> Right s
                                
