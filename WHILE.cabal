@@ -2,16 +2,16 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9928dd47d8aec744ce1b80ace3b0b2717c4c9d47537e15a9a6bdce4d25e3f00d
+-- hash: 5d8d99a3caec4dc55834e1b0a978f6c20cb88c7654af54f9e91b5b2ed51b674f
 
 name:           WHILE
 version:        0.1.0.0
-description:    Please see the README on Github at <https://github.com/thuytien140894/CMPS203/tree/WHILE#readme>
+description:    Please see the README on Github at <https://github.com/thuytien140894/CMPS203/tree/WHILE/#readme>
 homepage:       https://github.com/thuytien140894/CMPS203/tree/WHILE#readme
 bug-reports:    https://github.com/thuytien140894/CMPS203/tree/WHILE/issues
-author:         Author name here
+author:         Tien Thuy Ho
 maintainer:     example@example.com
-copyright:      2018 Tien Ho
+copyright:      2018 Tien Thuy Ho
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
@@ -30,17 +30,17 @@ library
       src
   build-depends:
       base >=4.7 && <5
-    , mtl >= 2.2 && < 3.0
-    , containers >= 0.5 && < 0.6
+    , containers >=0.5 && <0.6
+    , mtl >=2.2 && <3.0
   exposed-modules:
+      Evaluator
+      GlobalState
       Syntax
-    , Evaluator
-    , GlobalState
   other-modules:
       Paths_WHILE
   default-language: Haskell2010
 
-executable WHILE-exe
+executable Tien-exe
   main-is: Main.hs
   hs-source-dirs:
       app
@@ -48,13 +48,13 @@ executable WHILE-exe
   build-depends:
       WHILE
     , base >=4.7 && <5
-    , mtl >= 2.2 && < 3.0
-    , containers >= 0.5 && < 0.6
+    , containers >=0.5 && <0.6
+    , mtl >=2.2 && <3.0
   other-modules:
       Paths_WHILE
   default-language: Haskell2010
 
-test-suite WHILE-test
+test-suite Tien-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   hs-source-dirs:
@@ -63,11 +63,12 @@ test-suite WHILE-test
   build-depends:
       WHILE
     , base >=4.7 && <5
-    , hspec >= 2.2
-    , containers >= 0.5 && < 0.6
+    , containers >=0.5 && <0.6
+    , hspec >=2.2
+    , mtl >=2.2 && <3.0
   other-modules:
+      ArithEvalSpec
+      BoolEvalSpec
+      StmEvalSpec
       Paths_WHILE
-    , ArithEvalSpec
-    , BoolEvalSpec
-    , StmEvalSpec
   default-language: Haskell2010
