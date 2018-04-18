@@ -36,6 +36,9 @@ module Evaluator where
                             Num n1 <- aEval e1 s
                             Num n2 <- aEval e2 s
                             return $ if n1 < n2 then Tru else Fls
+    Not e'             -> do 
+                            b <- bEval e' s
+                            return $ if b == Tru then Fls else Tru
     And e1 e2          -> do 
                             b1 <- bEval e1 s 
                             case b1 of 

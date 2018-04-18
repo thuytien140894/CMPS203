@@ -33,6 +33,13 @@ module BoolEvalSpec where
           `shouldBe`
           Right Tru
 
+      context "!(10 == (3 + 7)" $
+        it "should be false" $
+          let b = Num 10 `Equal` (Num 3 `Add` Num 7)
+          in bEval (Not b) EmptyState
+          `shouldBe`
+          Right Fls
+
       context "(x == 3) && (y < 4) and [x=3,y=5]" $
         it "should be false" $ 
           let s  = update EmptyState "x" 3
