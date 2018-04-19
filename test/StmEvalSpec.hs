@@ -49,3 +49,25 @@ module StmEvalSpec where
           in cEval (Seq c1 (While b c2)) EmptyState
           `shouldBe`
           Right (State (fromList [("x",5)]))
+
+      context "for (x=0; x < 5; x=x+1)" $
+        it "should be [x=5]" $
+          let c1 = Assign "x" (Num 0)
+              b  = Var "x" `Less` Num 5
+              c2 = Assign "x" (Var "x" `Add` Num 1)
+              c3 = Seq c2 Skip
+          in cEval (For c1 b c3) EmptyState
+          `shouldBe`
+          Right (State (fromList [("x",5)]))
+
+      context "y=1;for (x=0; x < 5; x=x+1)" $
+        it "should be [x=5]" $
+          let c0 = Assign "y" (Num 1)
+              c1 = Assign "x" (Num 0)
+              b  = Var "x" `Less` Num 5
+              c2 = Assign "x" (Var "x" `Add` Num 1)
+              c3 = Assign "y" (Var "y" `Mult` Num 2)
+              c4 = Seq c2 c3
+          in cEval (Seq c0 (For c1 b c4)) EmptyState
+          `shouldBe`
+          Right (State (fromList [("x",5),("y",32)]))

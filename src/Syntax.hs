@@ -23,5 +23,6 @@ module Syntax where
     | Assign String AExp
     | Seq Stm Stm
     | If BExp Stm Stm
+    | For Stm BExp Stm
     | While BExp Stm
     deriving (Eq, Show)

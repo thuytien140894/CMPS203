@@ -69,4 +69,9 @@ module Evaluator where
                             case b' of 
                               Tru -> cEval (Seq c $ While b c) s 
                               Fls -> Right s
-                               
+    For c1 e c2        -> do 
+                            s' <- cEval c1 s
+                            b  <- bEval e s'
+                            case b of 
+                              Tru -> cEval (For c2 e c2) s' 
+                              Fls -> Right s'
