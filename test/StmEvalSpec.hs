@@ -55,7 +55,7 @@ module StmEvalSpec where
           let c1 = Assign "x" (Num 0)
               b  = Var "x" `Less` Num 5
               c2 = Assign "x" (Var "x" `Add` Num 1)
-              c3 = Seq c2 Skip
+              c3 = Seq Skip c2
           in cEval (For c1 b c3) EmptyState
           `shouldBe`
           Right (State (fromList [("x",5)]))
@@ -67,7 +67,7 @@ module StmEvalSpec where
               b  = Var "x" `Less` Num 5
               c2 = Assign "x" (Var "x" `Add` Num 1)
               c3 = Assign "y" (Var "y" `Mult` Num 2)
-              c4 = Seq c2 c3
+              c4 = Seq c3 c2
           in cEval (Seq c0 (For c1 b c4)) EmptyState
           `shouldBe`
           Right (State (fromList [("x",5),("y",32)]))
