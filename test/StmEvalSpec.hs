@@ -12,15 +12,15 @@ module StmEvalSpec where
     describe "evaluates" $ do
       context "skip []" $
         it "should be []" $
-          cEval Skip EmptyState
+          cEval Skip emptyState
           `shouldBe`
-          Right EmptyState
+          Right emptyState
 
       context "x=3;x=7" $
         it "should be [x=7]" $
           let c1 = Assign "x" (Num 3)
               c2 = Assign "x" (Num 7)
-          in cEval (Seq c1 c2) EmptyState
+          in cEval (Seq c1 c2) emptyState
           `shouldBe`
           Right (State (fromList [("x",7)]))
 
@@ -29,7 +29,7 @@ module StmEvalSpec where
           let c1 = Assign "x" (Num 7)
               t  = "x" `Assign` (Var "x" `Add` Num 1)
               f  = "x" `Assign` (Var "x" `Add` Num 2)
-          in cEval (Seq c1 (If Fls t f)) EmptyState
+          in cEval (Seq c1 (If Fls t f)) emptyState
           `shouldBe`
           Right (State (fromList [("x",9)]))
 
@@ -37,7 +37,7 @@ module StmEvalSpec where
         it "should be [x=4]" $
           let c1 = Assign "x" (Num 1)
               c2 = Assign "x" (Var "x" `Add` Num 3)
-          in cEval (Seq c1 c2) EmptyState
+          in cEval (Seq c1 c2) emptyState
           `shouldBe`
           Right (State (fromList [("x",4)]))
 
@@ -46,7 +46,7 @@ module StmEvalSpec where
           let c1 = Assign "x" (Num 1)
               b  = Var "x" `Less` Num 5
               c2 = Assign "x" (Var "x" `Add` Num 1)
-          in cEval (Seq c1 (While b c2)) EmptyState
+          in cEval (Seq c1 (While b c2)) emptyState
           `shouldBe`
           Right (State (fromList [("x",5)]))
 
@@ -56,18 +56,18 @@ module StmEvalSpec where
               b  = Var "x" `Less` Num 5
               c2 = Assign "x" (Var "x" `Add` Num 1)
               c3 = Seq Skip c2
-          in cEval (For c1 b c3) EmptyState
+          in cEval (For c1 b c3) emptyState
           `shouldBe`
           Right (State (fromList [("x",5)]))
 
-      context "y=1;for (x=0; x < 5; x=x+1)" $
-        it "should be [x=5]" $
+      context "y=1;for (x=2; x < 5; x=x+1, y=y*2)" $
+        it "should be [x=5,y=8]" $
           let c0 = Assign "y" (Num 1)
-              c1 = Assign "x" (Num 0)
+              c1 = Assign "x" (Num 2)
               b  = Var "x" `Less` Num 5
               c2 = Assign "x" (Var "x" `Add` Num 1)
               c3 = Assign "y" (Var "y" `Mult` Num 2)
               c4 = Seq c3 c2
-          in cEval (Seq c0 (For c1 b c4)) EmptyState
+          in cEval (Seq c0 (For c1 b c4)) emptyState
           `shouldBe`
-          Right (State (fromList [("x",5),("y",32)]))
+          Right (State (fromList [("x",5),("y",8)]))

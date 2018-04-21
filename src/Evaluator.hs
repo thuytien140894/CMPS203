@@ -5,6 +5,7 @@ module Evaluator where
 
   import Data.Either
 
+  -- evaluate arithmetic expressions
   aEval :: AExp -> State -> Either String AExp
   aEval e s = case e of 
     Num n              -> Right e  
@@ -24,6 +25,7 @@ module Evaluator where
                             Num n2 <- aEval e2 s
                             return $ Num $ n1 * n2
 
+  -- evaluate boolean expressions
   bEval :: BExp -> State -> Either String BExp
   bEval e s = case e of 
     Tru                -> Right Tru
@@ -50,6 +52,7 @@ module Evaluator where
                               Tru -> Right Tru
                               Fls -> bEval e2 s 
 
+  -- evaluate commands                           
   cEval :: Stm -> State -> Either String State
   cEval c s = case c of 
     Skip               -> Right s

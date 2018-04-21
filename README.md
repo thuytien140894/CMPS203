@@ -25,7 +25,7 @@ The AST of WHILE is defined as:
                  While BExp Stm
                  For Stm BExp Stm
 
-Note: An additional feature added to WHILE is the for command.
+Note: An additional feature added to WHILE is the **for** command.
 
 To run this program, make sure that Haskell and the Stack build tool are installed 
 on the system. 
