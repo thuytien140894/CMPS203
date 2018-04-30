@@ -18,11 +18,11 @@ module Syntax where
         | Or BExp BExp
         deriving (Eq, Show)
 
+    -- commands
     data Stm 
         = Skip 
         | Assign String AExp
         | Seq Stm Stm
         | If BExp Stm Stm
-        | For Stm BExp Stm
         | While BExp Stm
         deriving (Eq, Show)
