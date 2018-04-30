@@ -37,7 +37,7 @@ module ArithEvalSpec where
                 it "should be free variable" $
                 aEval (Var "x") emptyState
                 `shouldBe`
-                Left "Free variable"
+                Left "Variable not in scope: x"
 
             context "x and [x=3]" $
                 it "should be 3" $ 

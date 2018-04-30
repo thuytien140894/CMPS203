@@ -1,5 +1,6 @@
 module Syntax where 
   
+    -- arithmetic expressions
     data AExp 
         = Num Int 
         | Var String 
@@ -8,6 +9,7 @@ module Syntax where
         | Mult AExp AExp
         deriving (Eq, Show)
 
+    -- boolean expressions
     data BExp 
         = Tru
         | Fls 

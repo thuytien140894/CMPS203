@@ -11,7 +11,7 @@ module Evaluator where
         Num n      -> Right e  
         Var x      -> case lookUp s x of 
                           Just n  -> Right $ Num n
-                          Nothing -> Left "Free variable"
+                          Nothing -> Left $ "Variable not in scope: " ++ x
         Add e1 e2  -> do Num n1 <- aEval e1 s
                          Num n2 <- aEval e2 s
                          return $ Num $ n1 + n2
