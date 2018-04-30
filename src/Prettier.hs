@@ -52,8 +52,8 @@ module Prettier
     instance Pretty Stack where 
         output (Stack [])           = PP.empty
         output (Stack ((c, s): cs)) = PP.angles (output c <> PP.comma <+> output s) 
-                                      <+> PP.text "->" <+> PP.linebreak
-                                      <> output (Stack cs)
+                                      <> PP.linebreak <> PP.text "->" 
+                                      <+> output (Stack cs)
 
     instance Pretty Error where
         output e = case e of 
