@@ -1,9 +1,5 @@
 # WHILE
-<<<<<<< HEAD
 ## Small step evaluation
-=======
-## (Small step evaluation)
->>>>>>> 9efaa2e3b89bdab3f19f7ae5cdae86f1c866b7a5
  
 This program implemented an interpreter for the abstract syntax tree of WHILE. 
 The AST of WHILE is defined as:
