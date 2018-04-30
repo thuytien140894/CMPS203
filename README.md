@@ -1,4 +1,5 @@
 # WHILE
+## (Small step evaluation)
  
 This program implemented an interpreter for the abstract syntax tree of WHILE. 
 The AST of WHILE is defined as:
@@ -14,6 +15,7 @@ The AST of WHILE is defined as:
                  Fls
                  Equal AExp AExp
                  Less AExp AExp
+                 Greater AExp AExp
                  Not BExp
                  And BExp BExp
                  Or BExp BExp
@@ -23,9 +25,8 @@ The AST of WHILE is defined as:
                  Seq Stm Stm 
                  If BExp Stm Stm
                  While BExp Stm
-                 For Stm BExp Stm
 
-Note: An additional feature added to WHILE is the **for** command.
+Note: An additional features added to WHILE are division and greater than comparison.
 
 To run this program, make sure that Haskell and the Stack build tool are installed 
 on the system. 
@@ -56,7 +57,4 @@ on the system.
 
    Run the command:  
    
-        stack test 
-
-   The test cases can be found under the "test" directory. There are three different files 
-   for evaluation of arithmetic expressions, boolean expressions, and commands. 
+        stack exec WHILE-exe  
