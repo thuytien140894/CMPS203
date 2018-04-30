@@ -1,17 +1,16 @@
 module Evaluator where 
   
+    import Error
     import Syntax
     import GlobalState
 
-    import Data.Either
-
     -- evaluate arithmetic expressions
-    aEval :: AExp -> State -> Either String AExp
+    aEval :: AExp -> State -> Either Error AExp
     aEval e s = case e of 
         Num n      -> Right e  
         Var x      -> case lookUp s x of 
                           Just n  -> Right $ Num n
-                          Nothing -> Left $ "Variable not in scope: " ++ x
+                          Nothing -> Left $ NotInScope x
         Add e1 e2  -> do Num n1 <- aEval e1 s
                          Num n2 <- aEval e2 s
                          return $ Num $ n1 + n2
@@ -24,11 +23,11 @@ module Evaluator where
         Div e1 e2  -> do Num n1 <- aEval e1 s
                          Num n2 <- aEval e2 s 
                          if n2 == 0 
-                            then Left "Division by zero"
+                            then Left $ DivByZero e
                             else Right $ Num $ n1 `div` n2
 
     -- evaluate boolean expressions
-    bEval :: BExp -> State -> Either String BExp
+    bEval :: BExp -> State -> Either Error BExp
     bEval e s = case e of 
         Tru           -> Right Tru
         Fls           -> Right Fls
@@ -41,19 +40,19 @@ module Evaluator where
         Greater e1 e2 -> do Num n1 <- aEval e1 s
                             Num n2 <- aEval e2 s
                             return $ if n1 > n2 then Tru else Fls
-        Not e'       -> do b <- bEval e' s
-                           return $ if b == Tru then Fls else Tru
-        And e1 e2    -> do b1 <- bEval e1 s 
-                           case b1 of 
-                               Fls -> Right Fls
-                               Tru -> bEval e2 s
-        Or e1 e2     -> do b1 <- bEval e1 s 
-                           case b1 of 
-                               Tru -> Right Tru
-                               Fls -> bEval e2 s 
+        Not e'        -> do b <- bEval e' s
+                            return $ if b == Tru then Fls else Tru
+        And e1 e2     -> do b1 <- bEval e1 s 
+                            case b1 of 
+                                Fls -> Right Fls
+                                Tru -> bEval e2 s
+        Or e1 e2      -> do b1 <- bEval e1 s 
+                            case b1 of 
+                                Tru -> Right Tru
+                                Fls -> bEval e2 s 
 
     -- evaluate commands, small step                           
-    cEvalSmall :: Stm -> State -> Either String (Stm, State)
+    cEvalSmall :: Stm -> State -> Either Error (Stm, State)
     cEvalSmall c s = case c of 
         Skip        -> Right (Skip, s)
         Seq Skip c' -> return (c', s)
@@ -71,11 +70,11 @@ module Evaluator where
                               Fls -> return (Skip, s)
 
     -- evaluate commands, big step
-    cEvalBig :: Stm -> State -> Stack -> (Stack, String)
+    cEvalBig :: Stm -> State -> Stack -> (Stack, Error)
     cEvalBig c s stack = do 
         let curStack = stack `push` (c, s)
         let res = cEvalSmall c s 
         case res of 
-            Right (Skip, s') -> (curStack `push` (Skip, s'), "Done")
+            Right (Skip, s') -> (curStack `push` (Skip, s'), Stuck)
             Right (c', s')   -> cEvalBig c' s' curStack
             Left err         -> (curStack, err)

@@ -2,10 +2,11 @@ module Prettier
     ( printPretty 
     ) where 
 
+    import Error
     import GlobalState
     import Syntax 
 
-    import Text.PrettyPrint.ANSI.Leijen (Doc, (<>), (<+>), (<$$>))
+    import Text.PrettyPrint.ANSI.Leijen (Doc, (<>), (<+>))
     import qualified Text.PrettyPrint.ANSI.Leijen as PP
 
     class Pretty a where
@@ -53,3 +54,11 @@ module Prettier
         output (Stack ((c, s): cs)) = PP.angles (output c <> PP.comma <+> output s) 
                                       <+> PP.text "->" <+> PP.linebreak
                                       <> output (Stack cs)
+
+    instance Pretty Error where
+        output e = case e of 
+            NotInScope x -> PP.text "Exception: Variable not in scope:" 
+                            <+> PP.squotes (PP.text x)
+            DivByZero a  -> PP.text "Exception: Division by zero:" 
+                            <+> PP.squotes (output a)
+            Stuck        -> PP.text "Done"

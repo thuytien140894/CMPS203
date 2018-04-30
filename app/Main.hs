@@ -8,10 +8,10 @@ module Main where
     -- evaluate commands
     eval :: Stm -> IO ()
     eval c = do 
-        let (steps, err) = cEvalBig c emptyState emptyStack 
-        printPretty steps
-        putStrLn err
-        putStr "\n"
+        let (stack, err) = cEvalBig c emptyState emptyStack 
+        printPretty stack
+        printPretty err
+        putStrLn "\n"
 
     -- run test cases
     main :: IO ()
