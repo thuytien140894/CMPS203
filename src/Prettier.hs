@@ -21,16 +21,18 @@ module Prettier
             Add a1 a2  -> output a1 <+> PP.text "+" <+> output a2
             Sub a1 a2  -> output a1 <+> PP.text "-" <+> output a2
             Mult a1 a2 -> output a1 <+> PP.text "*" <+> output a2
+            Div a1 a2  -> output a1 <+> PP.text "/" <+> output a2
 
     instance Pretty BExp where 
         output b = case b of 
-            Tru         -> PP.text "true"
-            Fls         -> PP.text "false"
-            Not b'      -> PP.text "!" <> output b'
-            And b1 b2   -> output b1 <+> PP.text "&&" <+> output b2
-            Or b1 b2    -> output b1 <+> PP.text "||" <+> output b2
-            Equal a1 a2 -> output a1 <+> PP.text "=" <+> output a2
-            Less a1 a2  -> output a1 <+> PP.text "<" <+> output a2 
+            Tru           -> PP.text "true"
+            Fls           -> PP.text "false"
+            Not b'        -> PP.text "!" <> output b'
+            And b1 b2     -> output b1 <+> PP.text "&&" <+> output b2
+            Or b1 b2      -> output b1 <+> PP.text "||" <+> output b2
+            Equal a1 a2   -> output a1 <+> PP.text "=" <+> output a2
+            Less a1 a2    -> output a1 <+> PP.text "<" <+> output a2 
+            Greater a1 a2 -> output a1 <+> PP.text ">" <+> output a2 
     
     instance Pretty Stm where 
         output c = case c of 

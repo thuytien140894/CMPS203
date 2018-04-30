@@ -7,6 +7,7 @@ module Syntax where
         | Add AExp AExp
         | Sub AExp AExp
         | Mult AExp AExp
+        | Div AExp AExp
         deriving (Eq, Show)
 
     -- boolean expressions
@@ -15,6 +16,7 @@ module Syntax where
         | Fls 
         | Equal AExp AExp
         | Less AExp AExp
+        | Greater AExp AExp
         | Not BExp
         | And BExp BExp
         | Or BExp BExp
