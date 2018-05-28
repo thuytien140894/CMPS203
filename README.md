@@ -1,1 +1,2 @@
-# ARITH
+# CMPS203
+## Programming Languages
